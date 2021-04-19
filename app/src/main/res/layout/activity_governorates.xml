@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Governorates">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+                    <Button
+                            android:id="@+id/alex_Btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alexandria"
+                            android:textSize="30sp"
+                            android:backgroundTint="@color/purple"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                        android:layout_marginTop="50dp"/>
+
+                        <Button
+                            android:id="@+id/cairo_Btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cairo"
+                            android:textSize="30sp"
+                            android:backgroundTint="@color/purple"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@id/alex_Btn"/>
+
+
+                        <Button
+                            android:id="@+id/october_Btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="6 October"
+                            android:textSize="30sp"
+                            android:backgroundTint="@color/purple"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@id/cairo_Btn"/>
+
+
+                        <Button
+                            android:id="@+id/elmansoura_Btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="El Mansoura"
+                            android:textSize="30sp"
+                            android:backgroundTint="@color/purple"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@id/october_Btn"/>
+
+        <Button
+            android:id="@+id/portsaid_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Port Said"
+            android:textSize="30sp"
+            android:backgroundTint="@color/purple"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/elmansoura_Btn"/>
+        <Button
+            android:id="@+id/asyut_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Asyut"
+            android:textSize="30sp"
+            android:backgroundTint="@color/purple"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/portsaid_Btn"/>
+        <Button
+            android:id="@+id/sharm_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sharm El-Sheikh"
+            android:textSize="30sp"
+            android:backgroundTint="@color/purple"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/asyut_Btn"/>
+        <Button
+            android:id="@+id/hurghada_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hurghada"
+            android:textSize="30sp"
+            android:backgroundTint="@color/purple"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/sharm_Btn"/>
+        <Button
+            android:id="@+id/elgouna_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="El Gouna"
+            android:textSize="30sp"
+            android:backgroundTint="@color/purple"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/hurghada_Btn"/>
+
+    </RelativeLayout>
+    </ScrollView>
+
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CairoBranches">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints">
+
+                <Button
+                    android:id="@+id/wustElBalad_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wust El-Balad"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="50dp"/>
+
+                <Button
+                    android:id="@+id/madinetNasr_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Madinet Nasr"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/wustElBalad_BranchBtn"/>
+
+
+                <Button
+                    android:id="@+id/heliopolis_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Heliopolis"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/madinetNasr_BranchBtn"/>
+
+
+                <Button
+                    android:id="@+id/elMaadi_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="El Maadi"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/heliopolis_BranchBtn"/>
+
+                <Button
+                    android:id="@+id/elMohandessin_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="El Mohandessin"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/elMaadi_BranchBtn"/>
+                <Button
+                    android:id="@+id/eldokki_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="El Dokki"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/elMohandessin_BranchBtn"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

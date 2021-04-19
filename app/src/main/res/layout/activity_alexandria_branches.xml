@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AlexandriaBranches">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints">
+
+                <Button
+                    android:id="@+id/sultanHussien_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sultan Hussien"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="50dp"/>
+
+                <Button
+                    android:id="@+id/smouha_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Smouha"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/sultanHussien_BranchBtn"/>
+
+
+                <Button
+                    android:id="@+id/gleem_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gleem"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/smouha_BranchBtn"/>
+
+
+                <Button
+                    android:id="@+id/elsaraya_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="El Saraya"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/gleem_BranchBtn"/>
+
+                <Button
+                    android:id="@+id/kafrabdou_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kafr Abdou"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/elsaraya_BranchBtn"/>
+                <Button
+                    android:id="@+id/louran_BranchBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Louran"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/kafrabdou_BranchBtn"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "195428631205",
+    "project_id": "ehgezli-c6ae5",
+    "storage_bucket": "ehgezli-c6ae5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195428631205:android:53ce5151c2254261ac034c",
+        "android_client_info": {
+          "package_name": "com.example.ehgezli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195428631205-6gmlv46arll6nojst70l9rh1a63m1gj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1rv4Pxux8Q57xVkCPKPMgV54PgGcIsJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195428631205-6gmlv46arll6nojst70l9rh1a63m1gj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

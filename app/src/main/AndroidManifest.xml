@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ehgezli">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_circle"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_circle"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Ehgezli">
+        <activity android:name=".CustomerServiceActivity"></activity>
+        <activity android:name=".TellerActivity" />
+        <activity android:name=".BankActivity" />
+        <activity android:name=".ElGounaBranches" />
+        <activity android:name=".HurghadaBranches" />
+        <activity android:name=".SharmElsheikhBranches" />
+        <activity android:name=".AsyutBranches" />
+        <activity android:name=".PortSaidBranches" />
+        <activity android:name=".ElMansouraBranches" />
+        <activity android:name=".OctoberBranches" />
+        <activity android:name=".CairoBranches" />
+        <activity android:name=".AlexandriaBranches" />
+        <activity android:name=".Governorates" />
+        <activity android:name=".Help" />
+        <activity android:name=".RateUs" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".MyProfile" />
+        <activity android:name=".ForgetPassword" />
+        <activity android:name=".Register" />
+        <activity android:name=".Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+    </application>
+
+</manifest>
