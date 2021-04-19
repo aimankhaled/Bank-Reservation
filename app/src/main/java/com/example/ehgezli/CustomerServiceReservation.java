@@ -2,6 +2,7 @@ package com.example.ehgezli;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -41,9 +42,8 @@ private Button btn;
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Bundle bundle = getIntent().getExtras();
-        branchId = bundle.getString("BranchNumber");
-        operationId = bundle.getString("OperationNumber");
+        branchId =  getIntent().getStringExtra("BranchNumber");
+        operationId = getIntent().getStringExtra("OperationNumber");
         btn = findViewById(R.id.button);
         fire = FirebaseDatabase.getInstance();
         date = findViewById(R.id.calendarView);
@@ -162,7 +162,15 @@ private Button btn;
     }
 
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     public void GetDate(String DbTitle) {
