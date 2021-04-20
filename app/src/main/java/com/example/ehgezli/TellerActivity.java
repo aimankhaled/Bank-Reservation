@@ -36,7 +36,7 @@ public class TellerActivity extends AppCompatActivity {
         operation56_Btn.setOnClickListener(this::onClick);
     }
     public void onClick(View v) {
-        Intent intent = new Intent(TellerActivity.this, BankActivity.class);
+        Intent intent = new Intent(TellerActivity.this, TellerReservation.class);
         switch (v.getId()) {
             case R.id.operation50_Btn:
                 intent.putExtra("OperationNumber", "50");

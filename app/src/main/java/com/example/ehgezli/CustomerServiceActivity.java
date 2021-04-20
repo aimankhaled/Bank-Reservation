@@ -55,7 +55,7 @@ public class CustomerServiceActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        Intent intent = new Intent(CustomerServiceActivity.this, BankActivity.class);
+        Intent intent = new Intent(CustomerServiceActivity.this, CustomerServiceReservation.class);
         switch (v.getId()) {
             case R.id.operation57_Btn:
                 intent.putExtra("OperationNumber", "57");
