@@ -1,6 +1,7 @@
 package com.example.ehgezli;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,20 +52,25 @@ private Button btn;
         user = FirebaseAuth.getInstance().getCurrentUser();
         userId=user.getUid();
         ref = fire.getReference(branchId).child("CustomerService");
-        ref = fire.getReference("Reservations").child(userId);
-        if(operationId == "60" || operationId == "66" || operationId == "70" ){
+        ref2 = fire.getReference("Reservations").child(userId);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder2.setTitle("تحذير");
+        builder2.setIcon(android.R.drawable.ic_dialog_alert);
+        builder2.setMessage("يرجى العلم بأنه سوف يتم خصم 50 جنية فى حالة عدم الحضور");
+        if(operationId.equals("60") || operationId.equals("66") || operationId.equals("70") ){
             time = 10;
         }
-        else if(operationId =="61" || operationId == "62" || operationId == "67" || operationId == "68" || operationId == "69"  ){
+        else if(operationId.equals("61") || operationId.equals("62") || operationId.equals("67") || operationId.equals("68") || operationId.equals("69")  ){
             time = 15;
         }
-        else if(operationId =="58" || operationId == "71"){
+        else if(operationId.equals("58") || operationId.equals("71")){
             time = 20;
         }
-        else if(operationId =="57" || operationId == "59"  || operationId == "65" || operationId == "72" ){
+        else if(operationId.equals("57") || operationId.equals("59")  || operationId.equals("65") || operationId.equals("72") ){
             time = 30;
         }
-        else if(operationId =="63" || operationId == "64" ){
+        else if(operationId.equals("63") || operationId.equals("64") ){
             time = 45;
         }
         SetTommorowTime();
@@ -83,7 +90,7 @@ private Button btn;
                     dateSet.Day = calenderTommorow.get(Calendar.DAY_OF_MONTH);
                     dateSet.Month = calenderTommorow.get(Calendar.MONTH);
                     dateSet.Year = calenderTommorow.get(Calendar.YEAR);
-                    Toast.makeText(context, "Sorry, You Cannot Reserve At Weekend", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "عفوا لا يمكنك الحجز فى العطلات الرسمية", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     dateSet.Day = dayOfMonth;
@@ -100,6 +107,12 @@ private Button btn;
             public void onClick(View v) {
                 String DbTitle = String.valueOf(dateSet.Day)+String.valueOf(dateSet.Month)+String.valueOf(dateSet.Year);
                 if(dateRet.Day == 0 && dateRet.Month == 0 && dateRet.Year == 0){
+                    builder.setTitle("تأكيد");
+                    builder.setIcon(android.R.drawable.ic_dialog_alert);
+                    builder.setMessage("حجزك "+dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - 9:00" + " هل تريد التأكيد ؟");
+                    builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
                     ref.child(DbTitle).child("Day").setValue(dateSet.Day);
                     ref.child(DbTitle).child("Month").setValue(dateSet.Month);
                     ref.child(DbTitle).child("Year").setValue(dateSet.Year);
@@ -107,11 +120,21 @@ private Button btn;
                     ref.child(DbTitle).child("Minute").setValue(0);
                     ref2.child("Operation").setValue("Customer Service");
                     ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - 9:00");
-                    Toast.makeText(context, "Submit Successfully", Toast.LENGTH_SHORT).show();
+                            builder2.setNegativeButton(android.R.string.yes, null).show();
+                    Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
+                        }})
+                            .setNegativeButton(android.R.string.no, null).show();
                 }
                 else{
                     if(dateRet.Minute + time < 60){
                         int minuteSet = dateRet.Minute + time;
+                        builder.setTitle("تأكيد");
+                        builder.setIcon(android.R.drawable.ic_dialog_alert);
+                        builder.setMessage("حجزك "+dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
+                                dateRet.Hour + ":"+dateRet.Minute + " هل تريد التأكيد ؟");
+                        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
                         ref.child(DbTitle).child("Day").setValue(dateSet.Day);
                         ref.child(DbTitle).child("Month").setValue(dateSet.Month);
                         ref.child(DbTitle).child("Year").setValue(dateSet.Year);
@@ -119,13 +142,23 @@ private Button btn;
                         ref.child(DbTitle).child("Minute").setValue(minuteSet);
                         ref2.child("Operation").setValue("Customer Service");
                         ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
-                                dateSet.Hour + ":"+minuteSet);
-                        Toast.makeText(context, "Submit Successfully", Toast.LENGTH_SHORT).show();
+                                dateRet.Hour + ":"+dateRet.Minute);
+                                builder2.setNegativeButton(android.R.string.yes, null).show();
+                        Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
+                            }})
+                                .setNegativeButton(android.R.string.no, null).show();
                     }
                     else {
                         if(dateRet.Hour + 1 < 14){
                             int hourSet = dateRet.Hour + 1;
                             int minuteSet = time - (60 - dateRet.Minute);
+                            builder.setTitle("تأكيد");
+                            builder.setIcon(android.R.drawable.ic_dialog_alert);
+                            builder.setMessage("حجزك "+dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
+                                    dateRet.Hour + ":"+dateRet.Minute + " هل تريد التأكيد ؟");
+                            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
                             ref.child(DbTitle).child("Day").setValue(dateSet.Day);
                             ref.child(DbTitle).child("Month").setValue(dateSet.Month);
                             ref.child(DbTitle).child("Year").setValue(dateSet.Year);
@@ -133,11 +166,14 @@ private Button btn;
                             ref.child(DbTitle).child("Minute").setValue(minuteSet);
                             ref2.child("Operation").setValue("Customer Service");
                             ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
-                                   hourSet + ":"+minuteSet);
-                            Toast.makeText(context, "Submit Successfully", Toast.LENGTH_SHORT).show();
+                                    dateRet.Hour + ":"+dateRet.Minute);
+                                    builder2.setNegativeButton(android.R.string.yes, null).show();
+                            Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
+                                }})
+                                    .setNegativeButton(android.R.string.no, null).show();
                         }
                         else {
-                            Toast.makeText(context, "Sorry No Time in This Day", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "عفوا لا يوجد مواعيد متاحة هذا اليوم", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
