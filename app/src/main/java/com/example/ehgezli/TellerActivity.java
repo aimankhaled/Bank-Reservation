@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class TellerActivity extends AppCompatActivity {
     private Button operation50_Btn,operation51_Btn,operation52_Btn,operation53_Btn,operation54_Btn,operation55_Btn,operation56_Btn;
+    private String branchId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +20,8 @@ public class TellerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        branchId =  getIntent().getStringExtra("BranchNumber");
 
         operation50_Btn=(Button) findViewById(R.id.operation50_Btn);
         operation50_Btn.setOnClickListener(this::onClick);
@@ -37,6 +40,7 @@ public class TellerActivity extends AppCompatActivity {
     }
     public void onClick(View v) {
         Intent intent = new Intent(TellerActivity.this, TellerReservation.class);
+        intent.putExtra("BranchNumber", branchId);
         switch (v.getId()) {
             case R.id.operation50_Btn:
                 intent.putExtra("OperationNumber", "50");

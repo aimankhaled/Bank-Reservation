@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class BankActivity extends AppCompatActivity {
     private Button teller_Btn,customerService_Btn;
+    private String branchId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +19,8 @@ public class BankActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        branchId =  getIntent().getStringExtra("BranchNumber");
 
         teller_Btn=(Button) findViewById(R.id.teller_Btn);
         teller_Btn.setOnClickListener(this::onClick);
@@ -31,13 +34,13 @@ public class BankActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.teller_Btn:
                 intent = new Intent(BankActivity.this, TellerActivity.class);
-                intent.putExtra("BankService", "Teller");
+                intent.putExtra("BranchNumber", branchId);
                 startActivity(intent);
                 break;
 
             case R.id.customerService_Btn:
                 intent = new Intent(BankActivity.this, CustomerServiceActivity.class);
-                intent.putExtra("BankService", "Customer Service");
+                intent.putExtra("BranchNumber", branchId);
                 startActivity(intent);
                 break;
         }

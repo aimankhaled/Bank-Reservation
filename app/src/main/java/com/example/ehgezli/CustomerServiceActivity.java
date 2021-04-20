@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class CustomerServiceActivity extends AppCompatActivity {
     private Button operation57_Btn,operation58_Btn,operation59_Btn,operation60_Btn,operation61_Btn,operation62_Btn,operation63_Btn,operation64_Btn,operation65_Btn,operation66_Btn,operation67_Btn,operation68_Btn,operation69_Btn,operation70_Btn,operation71_Btn,operation72_Btn;
+    private String branchId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +20,7 @@ public class CustomerServiceActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        branchId =  getIntent().getStringExtra("BranchNumber");
 
         operation57_Btn=(Button) findViewById(R.id.operation57_Btn);
         operation57_Btn.setOnClickListener(this::onClick);
@@ -56,6 +58,7 @@ public class CustomerServiceActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         Intent intent = new Intent(CustomerServiceActivity.this, CustomerServiceReservation.class);
+        intent.putExtra("BranchNumber", branchId);
         switch (v.getId()) {
             case R.id.operation57_Btn:
                 intent.putExtra("OperationNumber", "57");

@@ -44,6 +44,7 @@ public class TellerReservation extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         branchId =  getIntent().getStringExtra("BranchNumber");
         operationId = getIntent().getStringExtra("OperationNumber");
+
         btn = findViewById(R.id.button2);
         fire = FirebaseDatabase.getInstance();
         date = findViewById(R.id.calendarView2);
