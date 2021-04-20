@@ -22,7 +22,7 @@
                     android:id="@+id/makadiBay_BranchBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Makadi Bay"
+                    android:text="منطقة البنوك"
                     android:textSize="30sp"
                     android:backgroundTint="@color/purple"
                     android:layout_marginLeft="15dp"

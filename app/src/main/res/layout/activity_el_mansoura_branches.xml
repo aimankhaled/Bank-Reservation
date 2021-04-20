@@ -22,7 +22,7 @@
                     android:id="@+id/elGish_BranchBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="El-Gish ST"
+                    android:text="شارع الجيش"
                     android:textSize="30sp"
                     android:backgroundTint="@color/purple"
                     android:layout_marginLeft="15dp"

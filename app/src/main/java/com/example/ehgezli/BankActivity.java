@@ -27,18 +27,18 @@ public class BankActivity extends AppCompatActivity {
 
     }
     public void onClick(View v) {
-
+        Intent intent;
         switch (v.getId()) {
             case R.id.teller_Btn:
-                Intent intent = new Intent(BankActivity.this, TellerActivity.class);
+                intent = new Intent(BankActivity.this, TellerActivity.class);
                 intent.putExtra("BankService", "Teller");
                 startActivity(intent);
                 break;
 
             case R.id.customerService_Btn:
-                Intent intent2 = new Intent(BankActivity.this, CustomerServiceActivity.class);
-                intent2.putExtra("BankService", "Customer Service");
-                startActivity(intent2);
+                intent = new Intent(BankActivity.this, CustomerServiceActivity.class);
+                intent.putExtra("BankService", "Customer Service");
+                startActivity(intent);
                 break;
         }
     }

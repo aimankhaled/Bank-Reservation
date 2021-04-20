@@ -6,4 +6,214 @@
     android:layout_height="match_parent"
     tools:context=".CustomerServiceActivity">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints">
+
+                <Button
+                    android:id="@+id/operation57_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="فتح حساب"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="30dp"/>
+
+                <Button
+                    android:id="@+id/operation58_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ربط شهادة / وديعة"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation57_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation59_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="عمل توكيل"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation58_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation60_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="إلغاء توكيل"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation59_Btn"/>
+
+                <Button
+                    android:id="@+id/operation61_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تحويل داخل مصر"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation60_Btn"/>
+                <Button
+                    android:id="@+id/operation62_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تحويل خارج مصر"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation61_Btn"/>
+                <Button
+                    android:id="@+id/operation63_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="عمل بوليصة تأمين"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation62_Btn"/>
+
+                <Button
+                    android:id="@+id/operation64_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="قرض / سحب علي المكشوف"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation63_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation65_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="كارت ائتمان"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation64_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation66_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="كارت خصم مباشر"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation65_Btn"/>
+
+                <Button
+                    android:id="@+id/operation67_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="إستخراج شهادة بالوسيط"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation66_Btn"/>
+                <Button
+                    android:id="@+id/operation68_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="إستخراج شهادة مديونية"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation67_Btn"/>
+                <Button
+                    android:id="@+id/operation69_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="صورة من كشف حساب"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation68_Btn"/>
+                <Button
+                    android:id="@+id/operation70_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="إبلاغ بالوفاة"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation69_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation71_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="صرف تركة"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation70_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation72_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تشغيل خدمات إنترنت"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation71_Btn"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

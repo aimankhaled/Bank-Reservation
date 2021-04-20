@@ -6,4 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".TellerActivity">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints">
+
+                <Button
+                    android:id="@+id/operation50_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="سحب"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="30dp"/>
+
+                <Button
+                    android:id="@+id/operation51_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="إيداع"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation50_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation52_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تغير عملة"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation51_Btn"/>
+
+
+                <Button
+                    android:id="@+id/operation53_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="سحب شيك"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation52_Btn"/>
+
+                <Button
+                    android:id="@+id/operation54_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="إيداع شيك"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation53_Btn"/>
+                <Button
+                    android:id="@+id/operation55_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="تحويل داخلي"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation54_Btn"/>
+                <Button
+                    android:id="@+id/operation56_Btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="إصدار شيك مصرفي"
+                    android:textSize="30sp"
+                    android:backgroundTint="@color/purple"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/operation55_Btn"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
