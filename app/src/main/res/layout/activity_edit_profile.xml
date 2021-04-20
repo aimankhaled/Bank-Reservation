@@ -25,6 +25,7 @@
                 android:background="@drawable/circle_border">
 
                 <ImageView
+                    android:id="@+id/profilePic_Image"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_margin="9dp"
@@ -38,7 +39,7 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/editProfile_NavBtn"
+                android:id="@+id/editProfilePic_Btn"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgUser"
