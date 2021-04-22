@@ -115,7 +115,7 @@ public class TellerReservation extends AppCompatActivity {
                             ref.child(DbTitle).child("Month").setValue(dateSet.Month);
                             ref.child(DbTitle).child("Year").setValue(dateSet.Year);
                             ref.child(DbTitle).child("Hour").setValue(9);
-                            ref.child(DbTitle).child("Minute").setValue(0);
+                            ref.child(DbTitle).child("Minute").setValue(time);
                             ref2.child(DbTitle).child("Operation").setValue("Teller");
                             ref2.child(DbTitle).child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - 9:00");
                             builder2.setNegativeButton(android.R.string.yes, null).show();
