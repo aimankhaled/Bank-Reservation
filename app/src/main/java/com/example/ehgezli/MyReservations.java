@@ -1,28 +1,50 @@
 package com.example.ehgezli;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MyReservations extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle abdt;
-    private ImageButton hsbcImageButton;
-    @Override
+    private FirebaseDatabase fire;
+    private DatabaseReference ref;
+    private FirebaseUser user;
+    private  String userId;
+    private ListView listView;
+    private ArrayList<String> reservationList;
+    private ArrayAdapter<String> adapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_myreservations);
+        listView = findViewById(R.id.listView);
+        reservationList = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(this,R.layout.reservation_info,R.id.resrevationInfo,reservationList);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userId=user.getUid();
+        fire = FirebaseDatabase.getInstance();
+        ref = fire.getReference("Reservations");
 
         dl=(DrawerLayout)findViewById(R.id.dl);
         abdt=new ActionBarDrawerToggle(this,dl,R.string.Open,R.string.Close);
@@ -69,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 else if(id==R.id.logout)
                 {
                     FirebaseAuth.getInstance().signOut();
-                    Toast.makeText(MainActivity.this,"Logout Successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyReservations.this,"Logout Successfully",Toast.LENGTH_SHORT).show();
                     Intent intent= new Intent(getApplicationContext(), com.example.ehgezli.Login.class);
                     startActivity(intent);
                     finish();
@@ -80,13 +102,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        hsbcImageButton=(ImageButton) findViewById(R.id.hsbc_imgBtn);
-        hsbcImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Governorates.class));
-            }
-        });
+ref.child(userId).addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
+if(snapshot.exists()){
+    reservationList.clear();
+    for(DataSnapshot Ds:snapshot.getChildren()){
+ReservationEntity res = Ds.getValue(ReservationEntity.class);
+reservationList.add(res.Operation + "   "+res.Date);
+    }
+}
+listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
+
+    }
+});
 
     }
     @Override

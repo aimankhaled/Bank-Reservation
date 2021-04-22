@@ -36,6 +36,7 @@ private Button btn;
     private FirebaseUser user;
     private  String userId,branchId,operationId;
     private int time;
+    private Boolean IsReserved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ private Button btn;
         userId=user.getUid();
         ref = fire.getReference(branchId).child("CustomerService");
         ref2 = fire.getReference("Reservations").child(userId);
+        IsReserved = false;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("تحذير");
@@ -105,77 +107,82 @@ private Button btn;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String DbTitle = String.valueOf(dateSet.Day)+String.valueOf(dateSet.Month)+String.valueOf(dateSet.Year);
-                if(dateRet.Day == 0 && dateRet.Month == 0 && dateRet.Year == 0){
+                String DbTitle = String.valueOf(dateSet.Day) + String.valueOf(dateSet.Month) + String.valueOf(dateSet.Year);
+                if(IsReserved.equals(false)){
+                if (dateRet.Day == 0 && dateRet.Month == 0 && dateRet.Year == 0) {
                     builder.setTitle("تأكيد");
                     builder.setIcon(android.R.drawable.ic_dialog_alert);
-                    builder.setMessage("حجزك "+dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - 9:00" + " هل تريد التأكيد ؟");
+                    builder.setMessage("حجزك " + dateSet.Day + "/" + dateSet.Month + "/" + dateSet.Year + " - 9:00" + " هل تريد التأكيد ؟");
                     builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int whichButton) {
-                    ref.child(DbTitle).child("Day").setValue(dateSet.Day);
-                    ref.child(DbTitle).child("Month").setValue(dateSet.Month);
-                    ref.child(DbTitle).child("Year").setValue(dateSet.Year);
-                    ref.child(DbTitle).child("Hour").setValue(9);
-                    ref.child(DbTitle).child("Minute").setValue(0);
-                    ref2.child("Operation").setValue("Customer Service");
-                    ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - 9:00");
+                            ref.child(DbTitle).child("Day").setValue(dateSet.Day);
+                            ref.child(DbTitle).child("Month").setValue(dateSet.Month);
+                            ref.child(DbTitle).child("Year").setValue(dateSet.Year);
+                            ref.child(DbTitle).child("Hour").setValue(9);
+                            ref.child(DbTitle).child("Minute").setValue(0);
+                            ref2.child(DbTitle).child("Operation").setValue("Customer Service");
+                            ref2.child(DbTitle).child("Date").setValue(dateSet.Day + "/" + dateSet.Month + "/" + dateSet.Year + " - 9:00");
                             builder2.setNegativeButton(android.R.string.yes, null).show();
-                    Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
-                        }})
+                            Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
+                        }
+                    })
                             .setNegativeButton(android.R.string.no, null).show();
-                }
-                else{
-                    if(dateRet.Minute + time < 60){
+                } else {
+                    if (dateRet.Minute + time < 60) {
                         int minuteSet = dateRet.Minute + time;
                         builder.setTitle("تأكيد");
                         builder.setIcon(android.R.drawable.ic_dialog_alert);
-                        builder.setMessage("حجزك "+dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
-                                dateRet.Hour + ":"+dateRet.Minute + " هل تريد التأكيد ؟");
+                        builder.setMessage("حجزك " + dateSet.Day + "/" + dateSet.Month + "/" + dateSet.Year + " - " +
+                                dateRet.Hour + ":" + dateRet.Minute + " هل تريد التأكيد ؟");
                         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                        ref.child(DbTitle).child("Day").setValue(dateSet.Day);
-                        ref.child(DbTitle).child("Month").setValue(dateSet.Month);
-                        ref.child(DbTitle).child("Year").setValue(dateSet.Year);
-                        ref.child(DbTitle).child("Hour").setValue(dateRet.Hour);
-                        ref.child(DbTitle).child("Minute").setValue(minuteSet);
-                        ref2.child("Operation").setValue("Customer Service");
-                        ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
-                                dateRet.Hour + ":"+dateRet.Minute);
+                                ref.child(DbTitle).child("Day").setValue(dateSet.Day);
+                                ref.child(DbTitle).child("Month").setValue(dateSet.Month);
+                                ref.child(DbTitle).child("Year").setValue(dateSet.Year);
+                                ref.child(DbTitle).child("Hour").setValue(dateRet.Hour);
+                                ref.child(DbTitle).child("Minute").setValue(minuteSet);
+                                ref2.child(DbTitle).child("Operation").setValue("Customer Service");
+                                ref2.child(DbTitle).child("Date").setValue(dateSet.Day + "/" + dateSet.Month + "/" + dateSet.Year + " - " +
+                                        dateRet.Hour + ":" + dateRet.Minute);
                                 builder2.setNegativeButton(android.R.string.yes, null).show();
-                        Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
-                            }})
+                                Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
+                            }
+                        })
                                 .setNegativeButton(android.R.string.no, null).show();
-                    }
-                    else {
-                        if(dateRet.Hour + 1 < 14){
+                    } else {
+                        if (dateRet.Hour + 1 < 14) {
                             int hourSet = dateRet.Hour + 1;
                             int minuteSet = time - (60 - dateRet.Minute);
                             builder.setTitle("تأكيد");
                             builder.setIcon(android.R.drawable.ic_dialog_alert);
-                            builder.setMessage("حجزك "+dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
-                                    dateRet.Hour + ":"+dateRet.Minute + " هل تريد التأكيد ؟");
+                            builder.setMessage("حجزك " + dateSet.Day + "/" + dateSet.Month + "/" + dateSet.Year + " - " +
+                                    dateRet.Hour + ":" + dateRet.Minute + " هل تريد التأكيد ؟");
                             builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                            ref.child(DbTitle).child("Day").setValue(dateSet.Day);
-                            ref.child(DbTitle).child("Month").setValue(dateSet.Month);
-                            ref.child(DbTitle).child("Year").setValue(dateSet.Year);
-                            ref.child(DbTitle).child("Hour").setValue(hourSet);
-                            ref.child(DbTitle).child("Minute").setValue(minuteSet);
-                            ref2.child("Operation").setValue("Customer Service");
-                            ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
-                                    dateRet.Hour + ":"+dateRet.Minute);
+                                    ref.child(DbTitle).child("Day").setValue(dateSet.Day);
+                                    ref.child(DbTitle).child("Month").setValue(dateSet.Month);
+                                    ref.child(DbTitle).child("Year").setValue(dateSet.Year);
+                                    ref.child(DbTitle).child("Hour").setValue(hourSet);
+                                    ref.child(DbTitle).child("Minute").setValue(minuteSet);
+                                    ref2.child(DbTitle).child("Operation").setValue("Customer Service");
+                                    ref2.child(DbTitle).child("Date").setValue(dateSet.Day + "/" + dateSet.Month + "/" + dateSet.Year + " - " +
+                                            dateRet.Hour + ":" + dateRet.Minute);
                                     builder2.setNegativeButton(android.R.string.yes, null).show();
-                            Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
-                                }})
+                                    Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
+                                }
+                            })
                                     .setNegativeButton(android.R.string.no, null).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(context, "عفوا لا يوجد مواعيد متاحة هذا اليوم", Toast.LENGTH_SHORT).show();
                         }
                     }
+                }
+            }
+                else {
+                    Toast.makeText(context, "عفوا لقد قمت مسبقا بالحجز فى نفس اليوم", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -190,11 +197,30 @@ private Button btn;
         calenderWeekAfter.add(Calendar.DATE,7);
         date.setMinDate(calenderTommorow.getTimeInMillis());
         date.setMaxDate(calenderWeekAfter.getTimeInMillis());
-        dateSet.Day = calenderTommorow.get(Calendar.DAY_OF_MONTH);
-        dateSet.Month = calenderTommorow.get(Calendar.MONTH);
-        dateSet.Year = calenderTommorow.get(Calendar.YEAR);
-        dateSet.Hour = calenderTommorow.get(Calendar.HOUR);
-        dateSet.Minute = calenderTommorow.get(Calendar.MINUTE);
+
+        if(calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ){
+            calenderTommorow.add(Calendar.DATE,1);
+            date.setMinDate(calenderTommorow.getTimeInMillis());
+            date.setDate(calenderTommorow.getTimeInMillis());
+            if(calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ) {
+                calenderTommorow.add(Calendar.DATE,1);
+                date.setMinDate(calenderTommorow.getTimeInMillis());
+                date.setDate(calenderTommorow.getTimeInMillis());
+            }
+                dateSet.Day = calenderTommorow.get(Calendar.DAY_OF_MONTH);
+                dateSet.Month = calenderTommorow.get(Calendar.MONTH);
+                dateSet.Year = calenderTommorow.get(Calendar.YEAR);
+        }
+        else {
+            dateSet.Day = calenderTommorow.get(Calendar.DAY_OF_MONTH);
+            dateSet.Month = calenderTommorow.get(Calendar.MONTH);
+            dateSet.Year = calenderTommorow.get(Calendar.YEAR);
+            dateSet.Hour = calenderTommorow.get(Calendar.HOUR);
+            dateSet.Minute = calenderTommorow.get(Calendar.MINUTE);
+        }
+
+
+
     }
 
 
@@ -210,6 +236,7 @@ private Button btn;
 
 
     public void GetDate(String DbTitle) {
+        IsReserved = false;
         ref.child(DbTitle).child("Day").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -290,5 +317,25 @@ private Button btn;
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        ref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    if (snapshot.hasChild(DbTitle)) {
+                        IsReserved = true;
+                    }
+                    else {
+                        IsReserved = false;
+                    }
+                } catch (Exception e) {
+                    IsReserved = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
+
 }

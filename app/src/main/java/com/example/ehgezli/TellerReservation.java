@@ -36,6 +36,7 @@ public class TellerReservation extends AppCompatActivity {
     private FirebaseUser user;
     private  String userId,branchId,operationId;
     private int time;
+    private Boolean IsReserved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class TellerReservation extends AppCompatActivity {
         userId=user.getUid();
         ref = fire.getReference(branchId).child("Teller");
         ref2 = fire.getReference("Reservations").child(userId);
+        IsReserved = false;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("تحذير");
@@ -101,6 +103,7 @@ public class TellerReservation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String DbTitle = String.valueOf(dateSet.Day)+String.valueOf(dateSet.Month)+String.valueOf(dateSet.Year);
+                if(IsReserved.equals(false)){
                 if(dateRet.Day == 0 && dateRet.Month == 0 && dateRet.Year == 0){
                     builder.setTitle("تأكيد");
                     builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -113,8 +116,8 @@ public class TellerReservation extends AppCompatActivity {
                             ref.child(DbTitle).child("Year").setValue(dateSet.Year);
                             ref.child(DbTitle).child("Hour").setValue(9);
                             ref.child(DbTitle).child("Minute").setValue(0);
-                            ref2.child("Operation").setValue("Teller");
-                            ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - 9:00");
+                            ref2.child(DbTitle).child("Operation").setValue("Teller");
+                            ref2.child(DbTitle).child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - 9:00");
                             builder2.setNegativeButton(android.R.string.yes, null).show();
                             Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
 
@@ -138,8 +141,8 @@ public class TellerReservation extends AppCompatActivity {
                         ref.child(DbTitle).child("Year").setValue(dateSet.Year);
                         ref.child(DbTitle).child("Hour").setValue(dateRet.Hour);
                         ref.child(DbTitle).child("Minute").setValue(minuteSet);
-                        ref2.child("Operation").setValue("Teller");
-                        ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
+                        ref2.child(DbTitle).child("Operation").setValue("Teller");
+                        ref2.child(DbTitle).child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
                                 dateRet.Hour + ":"+dateRet.Minute);
                                 builder2.setNegativeButton(android.R.string.yes, null).show();
                         Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
@@ -162,8 +165,8 @@ public class TellerReservation extends AppCompatActivity {
                             ref.child(DbTitle).child("Year").setValue(dateSet.Year);
                             ref.child(DbTitle).child("Hour").setValue(hourSet);
                             ref.child(DbTitle).child("Minute").setValue(minuteSet);
-                            ref2.child("Operation").setValue("Teller");
-                            ref2.child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
+                            ref2.child(DbTitle).child("Operation").setValue("Teller");
+                            ref2.child(DbTitle).child("Date").setValue(dateSet.Day +"/"+dateSet.Month+"/"+dateSet.Year+" - "+
                                     dateRet.Hour + ":"+dateRet.Minute);
                                     builder2.setNegativeButton(android.R.string.yes, null).show();
                             Toast.makeText(context, "تم الحجز بنجاح", Toast.LENGTH_SHORT).show();
@@ -174,6 +177,10 @@ public class TellerReservation extends AppCompatActivity {
                             Toast.makeText(context, "عفوا لا يوجد مواعيد متاحة هذا اليوم", Toast.LENGTH_SHORT).show();
                         }
                     }
+                }
+                }
+                else {
+                    Toast.makeText(context, "عفوا لقد قمت مسبقا بالحجز فى نفس اليوم", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -188,11 +195,27 @@ public class TellerReservation extends AppCompatActivity {
         calenderWeekAfter.add(Calendar.DATE,7);
         date.setMinDate(calenderTommorow.getTimeInMillis());
         date.setMaxDate(calenderWeekAfter.getTimeInMillis());
-        dateSet.Day = calenderTommorow.get(Calendar.DAY_OF_MONTH);
-        dateSet.Month = calenderTommorow.get(Calendar.MONTH);
-        dateSet.Year = calenderTommorow.get(Calendar.YEAR);
-        dateSet.Hour = calenderTommorow.get(Calendar.HOUR);
-        dateSet.Minute = calenderTommorow.get(Calendar.MINUTE);
+
+        if(calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ){
+            calenderTommorow.add(Calendar.DATE,1);
+            date.setMinDate(calenderTommorow.getTimeInMillis());
+            date.setDate(calenderTommorow.getTimeInMillis());
+            if(calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calenderTommorow.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ) {
+                calenderTommorow.add(Calendar.DATE,1);
+                date.setMinDate(calenderTommorow.getTimeInMillis());
+                date.setDate(calenderTommorow.getTimeInMillis());
+            }
+            dateSet.Day = calenderTommorow.get(Calendar.DAY_OF_MONTH);
+            dateSet.Month = calenderTommorow.get(Calendar.MONTH);
+            dateSet.Year = calenderTommorow.get(Calendar.YEAR);
+        }
+        else {
+            dateSet.Day = calenderTommorow.get(Calendar.DAY_OF_MONTH);
+            dateSet.Month = calenderTommorow.get(Calendar.MONTH);
+            dateSet.Year = calenderTommorow.get(Calendar.YEAR);
+            dateSet.Hour = calenderTommorow.get(Calendar.HOUR);
+            dateSet.Minute = calenderTommorow.get(Calendar.MINUTE);
+        }
     }
 
 
@@ -208,6 +231,7 @@ public class TellerReservation extends AppCompatActivity {
 
 
     public void GetDate(String DbTitle) {
+        IsReserved = false;
         ref.child(DbTitle).child("Day").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -281,6 +305,25 @@ public class TellerReservation extends AppCompatActivity {
                     dateRet.Minute = Integer.parseInt(child);
                 } catch (Exception e) {
                     dateRet.Minute = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        ref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    if (snapshot.hasChild(DbTitle)) {
+                        IsReserved = true;
+                    }
+                    else {
+                        IsReserved = false;
+                    }
+                } catch (Exception e) {
+                    IsReserved = false;
                 }
             }
 

@@ -22,7 +22,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="165dp"
-            android:layout_marginBottom="112dp"
+            android:layout_marginBottom="100dp"
             android:gravity="center"
             android:text="Rate us"
             android:textSize="35sp"

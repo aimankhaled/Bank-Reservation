@@ -76,6 +76,12 @@ public class MyProfile extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+                else if(id==R.id.reservations)
+                {
+                    Intent intent= new Intent(getApplicationContext(), com.example.ehgezli.MyReservations.class);
+                    startActivity(intent);
+                    finish();
+                }
                 else if(id==R.id.help)
                 {
                     Intent intent= new Intent(getApplicationContext(), com.example.ehgezli.Help.class);

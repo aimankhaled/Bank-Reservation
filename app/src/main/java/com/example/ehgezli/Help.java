@@ -63,6 +63,12 @@ public class Help extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+                else if(id==R.id.reservations)
+                {
+                    Intent intent= new Intent(getApplicationContext(), com.example.ehgezli.MyReservations.class);
+                    startActivity(intent);
+                    finish();
+                }
                 else if(id==R.id.logout)
                 {
                     FirebaseAuth.getInstance().signOut();
