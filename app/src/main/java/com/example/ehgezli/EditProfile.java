@@ -63,12 +63,8 @@ public class EditProfile extends AppCompatActivity {
     private DatabaseReference reference;
     private String userId;
     private EditText mobileEditText,fullNameEditText,ageEditText,addressEditText;
-    private Button updateProfileBtn,editProfilePic_Btn;
+    private Button updateProfileBtn;
     private ProgressBar progressBar;
-    private ImageView profilePic_Image;
-    private StorageReference storageReference;
-    private static final int image_pick_code = 1000;
-    private static final int permission_code = 1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +73,11 @@ public class EditProfile extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.abs_save);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         fullNameEditText = (EditText) findViewById(R.id.editUser_fullName);
         ageEditText = (EditText) findViewById(R.id.editUser_age);
         mobileEditText = (EditText) findViewById(R.id.editUser_mobile);
         addressEditText = (EditText) findViewById(R.id.editUser_address);
         progressBar = (ProgressBar) findViewById(R.id.progress_Bar);
-
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Users");
@@ -174,41 +168,6 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        profilePic_Image = (ImageView) findViewById(R.id.profilePic_Image);
-
-        storageReference= FirebaseStorage.getInstance().getReference();
-        StorageReference profileRef=storageReference.child("users/"+user.getUid()+"profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profilePic_Image);
-            }
-        });
-        editProfilePic_Btn=(Button)findViewById(R.id.editProfilePic_Btn);
-        editProfilePic_Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Intent openGallaryIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                //startActivityForResult(openGallaryIntent,1000);
-
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                        //permission not granted ask for it
-                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                        requestPermissions(permissions, permission_code);
-                    } else {
-                        //permission granted
-                        pickImageFromGallery();
-                    }
-                } else {
-                    //system os less than marshmallow
-                    pickImageFromGallery();
-                }
-            }
-        });
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -218,64 +177,6 @@ public class EditProfile extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void pickImageFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, image_pick_code);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode)
-        {
-            case permission_code:{
-                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
-                {
-                    pickImageFromGallery();
-                }
-                else
-                {
-                    Toast.makeText(this,"Permission denied... !",Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri imageUri = data.getData();
-                uploadImageToFirebase(imageUri);
-            }
-        }
-    }
-
-    private void uploadImageToFirebase(Uri imageUri)
-    {
-        StorageReference fileRef = storageReference.child("users/"+user.getUid()+"profile.jpg");
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(EditProfile.this,"Image Uploaded",Toast.LENGTH_SHORT).show();
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profilePic_Image);
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProfile.this,"Failed",Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
 
