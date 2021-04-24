@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -32,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,6 +44,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,12 +61,12 @@ public class EditProfile extends AppCompatActivity {
 
     private FirebaseUser user;
     private DatabaseReference reference;
-    private  String userId;
+    private String userId;
     private EditText mobileEditText,fullNameEditText,ageEditText,addressEditText;
     private Button updateProfileBtn,editProfilePic_Btn;
     private ProgressBar progressBar;
     private ImageView profilePic_Image;
-
+    private StorageReference storageReference;
     private static final int image_pick_code = 1000;
     private static final int permission_code = 1001;
     @Override
@@ -168,10 +175,24 @@ public class EditProfile extends AppCompatActivity {
         });
 
         profilePic_Image = (ImageView) findViewById(R.id.profilePic_Image);
+
+        storageReference= FirebaseStorage.getInstance().getReference();
+        StorageReference profileRef=storageReference.child("users/"+user.getUid()+"profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(profilePic_Image);
+            }
+        });
         editProfilePic_Btn=(Button)findViewById(R.id.editProfilePic_Btn);
         editProfilePic_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Intent openGallaryIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //startActivityForResult(openGallaryIntent,1000);
+
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                         //permission not granted ask for it
@@ -187,6 +208,7 @@ public class EditProfile extends AppCompatActivity {
                 }
             }
         });
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -197,6 +219,8 @@ public class EditProfile extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
     private void pickImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -223,28 +247,36 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (-1 == RESULT_OK && requestCode == image_pick_code) {
-            Uri selectedImage = data.getData();
-            InputStream inputStream = null;
-            try
-            {
-                assert selectedImage != null;
-                inputStream= getContentResolver().openInputStream(selectedImage);
-            }
-            catch (FileNotFoundException e)
-            {
-                e.printStackTrace();
-            }
-            BitmapFactory.decodeStream(inputStream);
-            profilePic_Image.setImageURI(selectedImage);
+        if (requestCode == 1000) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri imageUri = data.getData();
+                uploadImageToFirebase(imageUri);
             }
         }
+    }
 
-   /* @Override
-    protected void onStart() {
-        super.onStart();
+    private void uploadImageToFirebase(Uri imageUri)
+    {
+        StorageReference fileRef = storageReference.child("users/"+user.getUid()+"profile.jpg");
+        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(EditProfile.this,"Image Uploaded",Toast.LENGTH_SHORT).show();
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profilePic_Image);
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditProfile.this,"Failed",Toast.LENGTH_SHORT).show();
+            }
+        });
 
-    }*/
+    }
 
 
 }

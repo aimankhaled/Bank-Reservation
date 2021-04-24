@@ -30,11 +30,12 @@
         android:layout_marginTop="100dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:hint="Email Address"
+        android:hint=" Email Address"
+        android:drawableLeft="@drawable/ic_email"
         android:inputType="textEmailAddress"
         android:textSize="24sp"
         android:background="@drawable/border"
-        android:ems="10" />
+        android:ems="10"/>
 
     <EditText
         android:id="@+id/password_login"
@@ -46,7 +47,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:hint="Password"
+        android:hint=" Password"
+        android:drawableLeft="@drawable/ic_lock"
         android:inputType="textPassword"
         android:textSize="24sp"
         android:background="@drawable/border"

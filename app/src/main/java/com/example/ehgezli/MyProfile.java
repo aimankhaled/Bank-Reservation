@@ -7,13 +7,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.SplittableRandom;
 
@@ -30,11 +36,13 @@ public class MyProfile extends AppCompatActivity {
 
     private FirebaseUser user;
     private DatabaseReference reference;
+    private StorageReference storageReference;
 
     private DrawerLayout dl;
     private ActionBarDrawerToggle abdt;
 
 
+    private ImageView profilePic_Image;
     private String userId;
     private Button editProfileBtn;
     private TextView fullNameTextView,ageTextView,emailTextView,mobileTextView,addressTextView;
@@ -51,6 +59,23 @@ public class MyProfile extends AppCompatActivity {
         abdt.setDrawerIndicatorEnabled(true);
         dl.addDrawerListener(abdt);
         abdt.syncState();
+
+
+        profilePic_Image = (ImageView) findViewById(R.id.profilePic_Image);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference= FirebaseDatabase.getInstance().getReference("Users");
+        userId=user.getUid();
+
+        storageReference= FirebaseStorage.getInstance().getReference();
+        StorageReference profileRef=storageReference.child("users/"+user.getUid()+"profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(profilePic_Image);
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         NavigationView nav_view = (NavigationView)findViewById(R.id.nav_view);
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -101,9 +126,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference("Users");
-        userId=user.getUid();
 
         fullNameTextView = (TextView) findViewById(R.id.user_fullName);
         ageTextView = (TextView) findViewById(R.id.user_age);
