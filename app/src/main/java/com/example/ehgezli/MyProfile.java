@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -131,7 +132,6 @@ public class MyProfile extends AppCompatActivity {
 
 
 
-
         fullNameTextView = (TextView) findViewById(R.id.user_fullName);
         ageTextView = (TextView) findViewById(R.id.user_age);
         emailTextView = (TextView) findViewById(R.id.user_email);
@@ -149,6 +149,7 @@ public class MyProfile extends AppCompatActivity {
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+                //profilePic_Image.setImageURI(uri);
                 Picasso.get().load(uri).into(profilePic_Image);
             }
         });
@@ -246,6 +247,7 @@ public class MyProfile extends AppCompatActivity {
         if (requestCode == 1000) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
+                profilePic_Image.setImageURI(imageUri);
                 uploadImageToFirebase(imageUri);
             }
         }
@@ -261,7 +263,7 @@ public class MyProfile extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profilePic_Image);
+                        //Picasso.get().load(uri).into(profilePic_Image);
                     }
                 });
             }
