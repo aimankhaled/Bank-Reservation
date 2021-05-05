@@ -40,8 +40,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         mAuth = FirebaseAuth.getInstance();
 
-        bannerTextView=(TextView) findViewById(R.id.banner);
-        bannerTextView.setOnClickListener(this);
+        //bannerTextView=(TextView) findViewById(R.id.banner);
+        //bannerTextView.setOnClickListener(this);
 
         registerTextView = (Button) findViewById(R.id.register_Btn);
         registerTextView.setOnClickListener(this);
